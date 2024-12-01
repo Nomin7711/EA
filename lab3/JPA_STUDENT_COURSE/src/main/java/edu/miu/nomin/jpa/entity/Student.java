@@ -2,23 +2,27 @@ package edu.miu.nomin.jpa.entity;
 
 import jakarta.persistence.*;
 
-//The student has a name and GPA
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
+@NamedQuery(
+        name = "Student.CanGraduate",
+        query = "SELECT s FROM Student s " +
+                "WHERE s.gpa >= 3.0 " +
+                "AND size(s.coursesAttended) >= 9 " +
+                "AND s.courseAttending IS NULL"
+)
 public class Student {
     @Id @GeneratedValue
     private Long id;
     private String name;
     private float gpa;
-    @ManyToOne
-    private Course course;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Course courseAttending;
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
+    @ManyToMany
+    private List<Course> coursesAttended = new ArrayList<>();
 
     public Student() {}
     public Student(String name, float gpa) {
@@ -40,6 +44,21 @@ public class Student {
     }
     public void setGpa(float gpa) {
         this.gpa = gpa;
+    }
+
+    public Course getCourseAttending() {
+        return courseAttending;
+    }
+    public void setCourseAttending(Course courseAttending) {
+        this.courseAttending = courseAttending;
+    }
+
+    public void setCoursesAttended(Course coursesAttended) {
+        this.coursesAttended.add(coursesAttended);
+    }
+
+    public List<Course> getCoursesAttended() {
+        return coursesAttended;
     }
 
     @Override

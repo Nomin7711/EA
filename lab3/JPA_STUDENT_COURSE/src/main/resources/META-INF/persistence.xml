@@ -11,9 +11,11 @@
             <property name="jakarta.persistence.jdbc.password" value="Test123."/>
             <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
 
-            <property name="eclipselink.logging.level" value="FINE"/>
+<!--            <property name="eclipselink.logging.level" value="FINE"/>-->
         </properties>
         <class>edu.miu.nomin.jpa.entity.Course</class>
         <class>edu.miu.nomin.jpa.entity.Student</class>
+        <class>edu.miu.nomin.jpa.entity.OnCampus</class>
+        <class>edu.miu.nomin.jpa.entity.DistanceEducation</class>
     </persistence-unit>
 </persistence>

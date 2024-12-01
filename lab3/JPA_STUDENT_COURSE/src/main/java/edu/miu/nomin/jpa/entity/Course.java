@@ -3,30 +3,30 @@ package edu.miu.nomin.jpa.entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-//The course has a title, capacity, room, number
 @Entity
-@SecondaryTable(name="ROOM")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="course_type")
 public class Course {
     @Id@GeneratedValue
     private Long id;
     private String title;
-    private String capacity;
-    @Column(table = "ROOM")
-    private int room;
-    @Column(name="CODE")
-    private int number;
+    private Date startDate;
+    private String professorName;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "courseAttending", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
+    @ManyToMany(mappedBy = "coursesAttended")
+    private List<Student> enrolledStudents = new ArrayList<>();
+
     public Course() {}
-    public Course(String title, String capacity, int room, int number) {
+    public Course(String title, Date startDate, String professorName) {
         this.title = title;
-        this.capacity = capacity;
-        this.room = room;
-        this.number = number;
+        this.startDate = startDate;
+        this.professorName = professorName;
     }
     public Long getId() {
         return id;
@@ -38,24 +38,6 @@ public class Course {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getCapacity() {
-        return capacity;
-    }
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-    public int getRoom() {
-        return room;
-    }
-    public void setRoom(int room) {
-        this.room = room;
-    }
-    public int getNumber() {
-        return number;
-    }
-    public void setNumber(int number) {
-        this.number = number;
-    }
     public List<Student> getStudents() {
         return students;
     }
@@ -65,16 +47,35 @@ public class Course {
         }
         this.students.add(student);
     }
+    public Date getStartDate() {
+        return startDate;
+    }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    public String getProfessorName() {
+        return professorName;
+    }
+    public void setProfessorName(String professorName) {
+        this.professorName = professorName;
+    }
+
+    public List<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public void setEnrolledStudents(Student enrolledStudents) {
+        this.enrolledStudents.add(enrolledStudents);
+    }
 
     @Override
     public String toString() {
         return "Course{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", capacity='" + capacity + '\'' +
-                ", room=" + room +
-                ", number=" + number +
+                ", startDate=" + startDate +
+                ", professorName='" + professorName + '\'' +
+                ", students=" + students +
                 '}';
     }
-
 }
