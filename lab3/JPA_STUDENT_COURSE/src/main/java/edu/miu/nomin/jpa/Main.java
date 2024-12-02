@@ -23,13 +23,13 @@ public class Main {
         stream.forEach(System.out::println);
 
         //1.JPQL: Find students with GPA > 3.5 in courses with capacity > 30
-        String queryStr = "SELECT s FROM Student s JOIN s.courseAttending c WHERE s.gpa > :gpa AND TYPE(c) = OnCampus AND c.capacity > :capacity";
-
-        TypedQuery<Student> query1 = em.createQuery(queryStr, Student.class);
-        query1.setParameter("gpa", 3.5);
-        query1.setParameter("capacity", 30);
-        List<Student> students = query1.getResultList();
-        students.forEach(System.out::println);
+//        String queryStr = "SELECT s FROM Student s JOIN s.courseAttending c WHERE s.gpa > :gpa AND TYPE(c) = OnCampus AND c.capacity > :capacity";
+//
+//        TypedQuery<Student> query1 = em.createQuery(queryStr, Student.class);
+//        query1.setParameter("gpa", 3.5);
+//        query1.setParameter("capacity", 30);
+//        List<Student> students = query1.getResultList();
+//        students.forEach(System.out::println);
 
         //2. NamedQuery "CanGraduate": Find students with GPA ≥ 3.0, 9+ courses taken, not currently enrolled
         TypedQuery<Student> query2 = em.createNamedQuery("Student.CanGraduate", Student.class);
