@@ -19,22 +19,31 @@ public class Main {
         String queryString = "SELECT s FROM Student s";
         TypedQuery<Student> query = em.createQuery(queryString, Student.class);
         Stream<Student> stream = query.getResultStream();
-        System.out.println("Student list: ");
+        System.out.println("---Student list: ");
         stream.forEach(System.out::println);
 
         //1.JPQL: Find students with GPA > 3.5 in courses with capacity > 30
-        String queryStr = "SELECT s FROM Student s JOIN s.courseAttending c WHERE s.gpa > :gpa AND TYPE(c) = OnCampus AND c.capacity > :capacity";
+        String queryStr = "SELECT s FROM Student s " +
+                "JOIN OnCampus c ON c = s.courseAttending " +
+                "WHERE s.gpa > :gpa AND c.capacity > :capacity AND c.capacity IS NOT NULL";
 
         TypedQuery<Student> query1 = em.createQuery(queryStr, Student.class);
         query1.setParameter("gpa", 3.5);
         query1.setParameter("capacity", 30);
         List<Student> students = query1.getResultList();
+        System.out.println("---Student list with gpa > 3.5 and capacity > 30 : ");
+        for (Student student : students) {
+            System.out.println(student);
+            System.out.println(student.getCourseAttending().toString());
+        }
         students.forEach(System.out::println);
 
         //2. NamedQuery "CanGraduate": Find students with GPA ≥ 3.0, 9+ courses taken, not currently enrolled
         TypedQuery<Student> query2 = em.createNamedQuery("Student.CanGraduate", Student.class);
-        System.out.println("Students with gpa >= 3 and 9+ courses taken: ");
+        System.out.println("---Students with gpa >= 3 and 9+ courses taken: ");
+        em.getTransaction().begin();
         query2.getResultStream().forEach(System.out::println);
+        em.getTransaction().commit();
 
         //3.CriteriaAPI: Find students with GPA < 3.0 in DE courses with "Najeeb"
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -47,7 +56,7 @@ public class Main {
         cq.where(gpaPredicate, profNamePredicate);
         TypedQuery<Student> query3 = em.createQuery(cq);
         List<Student> students3 = query3.getResultList();
-        System.out.println("Students with gpa < 3 and DE courses with Najeeb: ");
+        System.out.println("---Students with gpa < 3 and DE courses with Najeeb: ");
         students3.forEach(System.out::println);
 
         em.close();
@@ -55,11 +64,11 @@ public class Main {
     }
 
     private static EntityManager getEntityManager() {
-        OnCampus onCampusCourse1 = new OnCampus("MPP", new Date(2024, 11, 20), "Renuka", "Room 101", 30);
+        OnCampus onCampusCourse1 = new OnCampus("MPP", new Date(2024, 11, 20), "Renuka", "Room 101", 35);
         DistanceEducation distanceCourse = new DistanceEducation("EA", new Date(2024, 9, 20), "Najeeb", "Dr. Lee", List.of(new Date(2024, 9, 25), new Date(2024, 9, 30)));
         OnCampus onCampusCourse2 = new OnCampus("Algorithm", new Date(2024, 10, 20), "Nair", "Room 102", 20);
 
-        Student student1 = new Student("Nomin", (float)3.5);
+        Student student1 = new Student("Nomin", (float)3.6);
         Student student2 = new Student("Jane", (float)3.8);
         Student student3 = new Student("Harry", (float)3.2);
         Student student4 = new Student("Potter", (float)2.0);
