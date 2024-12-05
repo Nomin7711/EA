@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "vehicle" class="edu.miu.nomin.jpa.Car">
+        <property name="year" value="2024"/>
+        <property name="make" value="Toyata"/>
+        <property name="model" value="Prius"/>
+        <property name="mileage" value="100000"/>
+    </bean>
+</beans>
