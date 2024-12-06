@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-init-method="init" default-destroy-method="destroy_default">
+
+    <!-- Component scan to detect annotated beans in the given package -->
+    <context:component-scan base-package="edu.miu.nomin.jpa"/>
+
+    <!-- Definition of the prototype destroyer bean -->
+<!--    <bean id="prototypeDestroyer" class="edu.miu.nomin.jpa.PrototypePreDestroyerInvoker"-->
+<!--          scope="singleton" destroy-method="destroy" init-method="init"/>-->
+
+    <!-- Definition of the vehicle (Car) bean -->
+<!--    <bean id="vehicle" class="edu.miu.nomin.jpa.Car" scope="singleton">-->
+<!--        <property name="year" value="2024"/>-->
+<!--        <property name="make" value="Toyota"/>-->
+<!--        <property name="model" value="Prius"/>-->
+<!--        <property name="mileage" value="100000"/>-->
+<!--    </bean>-->
+
+    <!-- Definition of the Game bean -->
+<!--    <bean id="game" class="edu.miu.nomin.jpa.Game" init-method="init" destroy-method="destroy" scope="singleton">-->
+<!--        <lookup-method name="getVehicle" />-->
+<!--    </bean>-->
+
+    <!-- Definition of the Bike beans -->
+<!--    <bean id="bike1" class="edu.miu.nomin.jpa.Bike"/>-->
+<!--    <bean id="bike2" class="edu.miu.nomin.jpa.Bike"/>-->
+
+</beans>
