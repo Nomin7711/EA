@@ -5,8 +5,7 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.stereotype.Component;
 
-public class Car implements Vehicle, DisposableBean, BeanNameAware {
-    private String beanName;
+public class Car implements Vehicle{
     private int year;
     private String make;
     private String model;
@@ -37,24 +36,8 @@ public class Car implements Vehicle, DisposableBean, BeanNameAware {
     }
 
     @Override
-    public void setBeanName(String name) {
-        this.beanName = name;
-    }
-
-    @PreDestroy
-    public void release(){
-        System.out.println("Car released");
-    }
-
-    @Override
     public void move() {
         System.out.println("Moving Car at 50 mph");
-        System.out.println(this.toString());
-    }
-
-    @Override
-    public void destroy() throws Exception {
-        System.out.println("Car destroyed");
     }
 
     @Override

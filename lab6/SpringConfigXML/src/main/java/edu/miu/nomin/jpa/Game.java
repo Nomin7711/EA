@@ -3,19 +3,11 @@ package edu.miu.nomin.jpa;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
-@Component
 public abstract class Game implements InitializingBean, BeanNameAware, DisposableBean {
     public String beanName;
-    @Autowired
     private Car car;
-    @Autowired
-//    @Qualifier("bike1")
-    private Bike bike;
+    private Bike bike2;
 
     public Game() {
         System.out.println("Game created");
@@ -30,6 +22,10 @@ public abstract class Game implements InitializingBean, BeanNameAware, Disposabl
     public void play(){
         Vehicle vehicle = this.getVehicle();
         vehicle.move();
+        bike2.move();
+    }
+    public void setBike2(Bike bike){
+        this.bike2= bike;
     }
     @Lookup
     public abstract Car getVehicle();

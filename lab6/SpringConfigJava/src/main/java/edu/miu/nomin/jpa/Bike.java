@@ -1,10 +1,6 @@
 package edu.miu.nomin.jpa;
 
-
-import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.beans.factory.DisposableBean;
-public class Bike implements Vehicle, DisposableBean, BeanNameAware {
-    private String beanName;
+public class Bike implements Vehicle {
     private int tireSize;
     private String brand;
 
@@ -19,7 +15,6 @@ public class Bike implements Vehicle, DisposableBean, BeanNameAware {
     @Override
     public void move() {
         System.out.println("Bike move at 10 mph");
-        System.out.println(toString());
     }
 
     public int getTireSize() {
@@ -35,14 +30,7 @@ public class Bike implements Vehicle, DisposableBean, BeanNameAware {
         this.brand = brand;
     }
 
-    public String getBeanName() {
-        return beanName;
-    }
 
-    @Override
-    public void setBeanName(String name) {
-        this.beanName = name;
-    }
     @Override
     public String toString() {
         return "Bike{" +
@@ -51,8 +39,4 @@ public class Bike implements Vehicle, DisposableBean, BeanNameAware {
                 '}';
     }
 
-    @Override
-    public void destroy() throws Exception {
-        System.out.println("Bike destroyed");
-    }
 }

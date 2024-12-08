@@ -13,7 +13,9 @@ public class Main {
         ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
         Game game = (Game) context.getBean("game");
         game.play();
+        A a = context.getBean("a", A.class);
+        System.out.println(a);
+        System.out.println(a.getC().getB().getA());
         ((ClassPathXmlApplicationContext) context).close();
-
     }
 }
