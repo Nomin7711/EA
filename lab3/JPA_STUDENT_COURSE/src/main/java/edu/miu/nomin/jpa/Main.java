@@ -1,9 +1,6 @@
 package edu.miu.nomin.jpa;
 
-import edu.miu.nomin.jpa.entity.Course;
-import edu.miu.nomin.jpa.entity.DistanceEducation;
-import edu.miu.nomin.jpa.entity.OnCampus;
-import edu.miu.nomin.jpa.entity.Student;
+import edu.miu.nomin.jpa.entity.*;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
 
@@ -23,7 +20,7 @@ public class Main {
         stream.forEach(System.out::println);
 
         //1.JPQL: Find students with GPA > 3.5 in courses with capacity > 30
-        String queryStr = "SELECT s FROM Student s JOIN s.courseAttending c WHERE s.gpa > :gpa AND TYPE(c) = OnCampus AND c.capacity > :capacity";
+        String queryStr = "SELECT s FROM Student s JOIN OnCampus c on c = s.courseAttending WHERE s.gpa > :gpa AND TYPE(c) = OnCampus AND c.capacity > :capacity";
 
         TypedQuery<Student> query1 = em.createQuery(queryStr, Student.class);
         query1.setParameter("gpa", 3.5);
@@ -64,6 +61,8 @@ public class Main {
         Student student3 = new Student("Harry", (float)3.2);
         Student student4 = new Student("Potter", (float)2.0);
 
+        GoodStudent gs = new GoodStudent("ichdeggui");
+        System.out.println(gs.toString());
         student1.setCourseAttending(onCampusCourse1);
         student1.setCoursesAttended(distanceCourse);
         student1.setCoursesAttended(onCampusCourse2);

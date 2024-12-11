@@ -13,7 +13,7 @@ import java.util.List;
                 "AND size(s.coursesAttended) >= 9 " +
                 "AND s.courseAttending IS NULL"
 )
-public class Student {
+public class Student extends GoodStudent{
     @Id @GeneratedValue
     private Long id;
     private String name;
