@@ -3,6 +3,7 @@ package edu.miu.nomin.jpa.hospitalappointment.controller;
 import edu.miu.nomin.jpa.hospitalappointment.entity.Patient;
 import edu.miu.nomin.jpa.hospitalappointment.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

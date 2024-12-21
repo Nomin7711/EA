@@ -3,6 +3,7 @@ package edu.miu.nomin.jpa.hospitalappointment.controller;
 import edu.miu.nomin.jpa.hospitalappointment.entity.Doctor;
 import edu.miu.nomin.jpa.hospitalappointment.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class DoctorController {
     DoctorService doctorService;
 
     @GetMapping(produces = "application/json")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Doctor> getAllDoctors() {
         return doctorService.findAll();
     }

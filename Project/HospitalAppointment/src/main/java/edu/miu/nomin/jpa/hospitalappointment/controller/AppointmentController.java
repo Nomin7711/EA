@@ -4,6 +4,7 @@ import edu.miu.nomin.jpa.hospitalappointment.entity.Appointment;
 import edu.miu.nomin.jpa.hospitalappointment.entity.AppointmentStatus;
 import edu.miu.nomin.jpa.hospitalappointment.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class AppointmentController {
         return appointmentService.createAppointment(appointment);
     }
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Appointment> getAllAppointments() {
         return appointmentService.findAll();
     }
